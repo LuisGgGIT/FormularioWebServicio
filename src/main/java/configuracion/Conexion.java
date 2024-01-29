@@ -12,7 +12,7 @@ public class Conexion {
         if (conn == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_laboratorio", "root", "");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_tarjetajoven", "root", "");
             } catch (SQLException ex) {
                 throw new SQLException(ex);
             } catch (ClassNotFoundException ex) {

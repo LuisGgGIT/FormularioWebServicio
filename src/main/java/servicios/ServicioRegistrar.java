@@ -45,7 +45,6 @@ public class ServicioRegistrar {
         JSONObject jsonresponse = new JSONObject();
         boolean response = false;
         Usuario beanrequest = new Usuario(jsonrequest);
-
         response = operacion.registrarUsuario(beanrequest);
         jsonresponse.put("validador", response);
         return jsonresponse.toString();
@@ -192,7 +191,7 @@ public class ServicioRegistrar {
         jsonResponse.put("validador", response);
         return jsonResponse.toString();
     }
-/*
+    
     @POST
     @Path("estudiofamiliar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -286,7 +285,7 @@ public class ServicioRegistrar {
         JSONObject jsonResponse = new JSONObject();
         boolean response = false;
         Vehiculos vehiculos = new Vehiculos(request);
-        response = operacion.registrarVehiculos(vehiculos);
+        response = operacion.registrarVehiculo(vehiculos);
         jsonResponse.put("validador", response);
         return jsonResponse.toString();
     }
@@ -318,5 +317,4 @@ public class ServicioRegistrar {
         jsonResponse.put("validador", response);
         return jsonResponse.toString();
     }
-*/
 }

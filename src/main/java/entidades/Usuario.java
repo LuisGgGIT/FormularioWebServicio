@@ -1,16 +1,17 @@
 package entidades;
 
+import org.json.JSONObject;
 
 public class Usuario {
 
     private int usuario_id;
     private String usuario_uuid;
-    private String contrasenia; 
+    private String contrasenia;
     private String email;
     private String curp;
-    
+
     private String edad;
-    private String fecha_nacimiento; 
+    private String fecha_nacimiento;
     private String fecha_registro;
 
     public Usuario(String email, String contrasenia, String curp, String edad, String fecha_nacimiento) {
@@ -31,13 +32,21 @@ public class Usuario {
     }
 
     public Usuario() {
-        
+
+    }
+
+    public Usuario(JSONObject jsonrequest) {
+        this.email = (String) jsonrequest.get("email");
+        this.contrasenia = (String) jsonrequest.get("contrasenia");
+        this.curp = (String) jsonrequest.get("curp");
+        this.edad = (String) jsonrequest.get("edad");
+        this.fecha_nacimiento = (String) jsonrequest.get("fecha_nacimiento");
     }
 
     public Usuario(String usuario_uuid) {
         this.usuario_uuid = usuario_uuid;
     }
-   
+
     public String getUsuario_uuid() {
         return usuario_uuid;
     }
@@ -102,7 +111,4 @@ public class Usuario {
         this.fecha_registro = fecha_registro;
     }
 
-    
-
-    
 }

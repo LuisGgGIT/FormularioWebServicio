@@ -21,6 +21,39 @@ public class OperacionesBuscar {
     Herramientas herramientas = new Herramientas();
     private Date fechaSQL;
 
+    public Usuario BuscarUsuarioEmailPas(Usuario usuario) {
+        Connection conn = null;
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;
+        try {
+            try {
+                conn = conexion.conectarBD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(OperacionesBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            } //Establecer la conexion
+            
+            String consulta = "SELECT * FROM "
+                    + "USUARIO "
+                    + "WHERE "
+                    + "email = ? AND contrasenia = ? ";
+            
+            sentencia = conn.prepareStatement(consulta);
+            sentencia.setString(1, usuario.getEmail());
+            sentencia.setString(2, usuario.getContrasenia());
+            rs = sentencia.executeQuery();
+            
+            while (rs != null && rs.next()) {
+                usuario = herramientas.rellenarUsuario(rs);
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+            conexion.cerrar(conn); //Cerrar la conexion con la BD
+        }
+        return usuario;
+    }
+    
     public Usuario BuscarUsuarioId(String usuario_uuid) {
         Connection conn = null;
         PreparedStatement sentencia = null;
@@ -34,7 +67,7 @@ public class OperacionesBuscar {
             } //Establecer la conexion
             
             String consulta = "SELECT * FROM "
-                    + "usuario "
+                    + "USUARIO "
                     + "WHERE "
                     + "usuario_uuid = ? ";
             

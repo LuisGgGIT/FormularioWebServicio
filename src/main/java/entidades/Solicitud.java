@@ -1,23 +1,30 @@
 package entidades;
 
+import org.json.JSONObject;
+
 public class Solicitud {
+
     private int solicitud_id;
     private String usuario_uuid;
     private String fecha_inicio;
-    private String fecha_fin; 
-    private String estatus; 
+    private String fecha_fin;
+    private String estatus;
 
     public Solicitud(String usuario_uuid, String estatus) {
         this.usuario_uuid = usuario_uuid;
         this.estatus = estatus;
     }
 
-    
     public Solicitud(String usuario_uuid, String fecha_inicio, String fecha_fin, String estatus) {
         this.usuario_uuid = usuario_uuid;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.estatus = estatus;
+    }
+
+    public Solicitud(JSONObject jsonRequest) {
+        this.usuario_uuid = (String) jsonRequest.get("usuario_uuid");
+        this.estatus = (String) jsonRequest.get("estatus");
     }
 
     public int getSolicitud_id() {
@@ -59,8 +66,5 @@ public class Solicitud {
     public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
-    
-    
-    
-    
+
 }

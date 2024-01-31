@@ -26,7 +26,6 @@ public class ServicioEliminar {
         boolean editarUsuario = false;
 
         String usuario_uuid = (String) jsonrequest.get("usuario_uuid");
-
         Usuario usuariorequest = new Usuario(usuario_uuid);
 
         editarUsuario = operacion.eliminarUsuario(usuariorequest);

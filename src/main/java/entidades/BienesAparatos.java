@@ -21,8 +21,8 @@ public class BienesAparatos {
 
     public BienesAparatos(JSONObject jsonObject) {
         this.usuarioUuid = jsonObject.getString("usuario_uuid");
-        this.aparato = jsonObject.optString("Aparato", "");
-        this.estatus = jsonObject.optString("Estatus", "");
+        this.aparato = jsonObject.optString("aparato", "");
+        this.estatus = jsonObject.optString("estatus", "");
     }
 
     // Getters y setters

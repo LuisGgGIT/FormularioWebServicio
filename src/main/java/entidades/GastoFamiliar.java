@@ -9,26 +9,31 @@ public class GastoFamiliar {
     private String regimenSeguridadSocial;
     private String alimentos;
     private String rentaPredial;
+    
     private String despensa;
     private String luz;
     private String productosLimpieza;
     private String agua;
     private String transporte;
+    
     private String telefono;
     private String servicioDomestico;
     private String telefonoCelular;
     private String seguros;
     private String cable;
+    
     private String pagoCredito;
     private String internet;
     private String pagosTarjetasCredito;
     private String gas;
     private String hipoteca;
+    
     private String ropaCalzado;
     private String gastosMedicos;
     private String gastosPersonales;
     private String colegiaturaSolicitante;
     private String vacaciones;
+    
     private String colegiaturaOtrosMiembros;
     private String diversionesEntretenimiento;
     private String librosMateriales;

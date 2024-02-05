@@ -2,6 +2,11 @@ package servicios;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entidades.InfoFamilia;
+import entidades.InfoPersonal;
+import entidades.InfoVivienda;
+import entidades.ObjetivoApoyo;
+import entidades.Solicitud;
 import entidades.TrabajoSolicitante;
 import entidades.Usuario;
 import javax.ws.rs.Consumes;
@@ -38,11 +43,51 @@ public class ServicioBucar {
     }
 
     @GET
-    @Path("usuariouuid")
+    @Path("solicitud")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarUsuarioid(@QueryParam("usuario_uuid") String usuario_uuid) {
+    public Response buscarSolicituduuid(@QueryParam("usuario_uuid") String usuario_uuid) {
 
-        Usuario acceso = operacion.BuscarUsuarioId(usuario_uuid);
+        Solicitud acceso = operacion.BuscarSolicituduuid(usuario_uuid);
+        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+        return Response.ok(gson.toJson(acceso)).build();
+    }
+
+    @GET
+    @Path("infopersonal")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarInfoPersonaluuid(@QueryParam("usuario_uuid") String usuario_uuid) {
+
+        InfoPersonal acceso = operacion.BuscarInfoPersonaluuid(usuario_uuid);
+        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+        return Response.ok(gson.toJson(acceso)).build();
+    }
+
+    @GET
+    @Path("infofamilia")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarInfoFamiliauuid(@QueryParam("usuario_uuid") String usuario_uuid) {
+
+        InfoFamilia acceso = operacion.BuscarInfoFamiliauuid(usuario_uuid);
+        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+        return Response.ok(gson.toJson(acceso)).build();
+    }
+
+    @GET
+    @Path("infovivienda")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarInfoViviendauuid(@QueryParam("usuario_uuid") String usuario_uuid) {
+
+        InfoVivienda acceso = operacion.BuscarInfoViviendauuid(usuario_uuid);
+        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+        return Response.ok(gson.toJson(acceso)).build();
+    }
+
+    @GET
+    @Path("objetivoapoyo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarObjetivoApoyouuid(@QueryParam("usuario_uuid") String usuario_uuid) {
+
+        ObjetivoApoyo acceso = operacion.BuscarObjetivoApoyouuid(usuario_uuid);
         Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
         return Response.ok(gson.toJson(acceso)).build();
     }

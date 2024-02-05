@@ -95,14 +95,15 @@ public class OperacionesEditar {
 
             String consulta = "UPDATE SOLICITUD "
                     + "SET "
-                    + "estatus = ?"
+                    + "estatus = ?, descripcion = ?"
                     + "WHERE "
                     + "usuario_uuid = ?";
 
             sentencia = conn.prepareStatement(consulta);
 
             sentencia.setString(1, solicitud.getEstatus());
-            sentencia.setString(2, solicitud.getUsuario_uuid());
+            sentencia.setString(2, solicitud.getDescripcion());
+            sentencia.setString(3, solicitud.getUsuario_uuid());
 
             filasActualizadas = sentencia.executeUpdate();
             if (filasActualizadas > 0) {

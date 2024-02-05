@@ -20,6 +20,11 @@ import entidades.Solicitud;
 import entidades.TrabajoSolicitante;
 import entidades.Usuario;
 import entidades.Vehiculos;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -36,6 +41,13 @@ public class ServicioRegistrar {
     OperacionesRegistrar operacion = new OperacionesRegistrar();
     Herramientas herramienta = new Herramientas();
 
+    /*Rutas de pruebas*/
+    private static final String RUTAHTTP = "http://127.0.0.1:8887/";
+    private static final String RUTA = "C:\\Users\\usuario\\Desktop\\TarjetaJovenPDF\\";
+
+    /*Rutas de servidor*/
+    //private static final String RUTAHTTP = "http://localhost:80/TarjetaJovenPDF/";
+    //private static final String RUTA = "/opt/tomcat/imagenes/";
     @POST
     @Path("usuario")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -121,7 +133,7 @@ public class ServicioRegistrar {
         jsonResponse.put("validador", response);
         return jsonResponse.toString();
     }
- 
+
     @POST
     @Path("trabajosolicitante")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -191,7 +203,7 @@ public class ServicioRegistrar {
         jsonResponse.put("validador", response);
         return jsonResponse.toString();
     }
-    
+
     @POST
     @Path("estudiofamiliar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -303,18 +315,69 @@ public class ServicioRegistrar {
         jsonResponse.put("validador", response);
         return jsonResponse.toString();
     }
-
+/*
     @POST
-    @Path("Documentacion")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String registrarDocumentacion(String jsonRequest) {
-        JSONObject request = new JSONObject(jsonRequest);
+    @Path("documentacion")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public String uploadFile(
+            @FormDataParam("uuid") String uuid,
+            @FormDataParam("documento") String documento,
+            @FormDataParam("descripcion") String descripcion,
+            @FormDataParam("filepdf") InputStream uploadedInputStreampdf,
+            @FormDataParam("filepdf") FormDataContentDisposition fileDetailpdf) throws ClassNotFoundException {
+
         JSONObject jsonResponse = new JSONObject();
+        File directorio = new File(RUTA);
         boolean response = false;
-        Documentacion documentacion = new Documentacion(request);
+
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            } else {
+                System.out.println("Error al crear directorio");
+            }
+        } else {
+            System.out.println("Directorio ya existe ");
+
+        }
+
+        //se agrega la variable RUTA para refeenciar la ubicacion donde se alojara el archivo pdf.         
+        String uploadedFileLocationpdf = RUTA + fileDetailpdf.getFileName();
+        String serverpdf = RUTAHTTP + fileDetailpdf.getFileName();
+
+        org.json.simple.JSONObject json = new org.json.simple.JSONObject();
+        Documentacion documentacion = new Documentacion();
+        documentacion.setUsuarioUuid(uuid);
+        documentacion.setDocumento(documento);
+        documentacion.setDescripcion(descripcion);
         response = operacion.registrarDocumentacion(documentacion);
+
+        if (response) {
+            writeFilePDF(uploadedInputStreampdf, uploadedFileLocationpdf);
+            //writeFilePDF(uploadedInputStreampdf, serverpdf);
+        }
+
         jsonResponse.put("validador", response);
-        return jsonResponse.toString();
+        return json.toJSONString();
+
     }
+
+    private void writeFilePDF(InputStream uploadedInputStream,
+            String uploadedFileLocation) {
+        try {
+            OutputStream out = new FileOutputStream(new File(
+                    uploadedFileLocation));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            out = new FileOutputStream(new File(uploadedFileLocation));
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 }

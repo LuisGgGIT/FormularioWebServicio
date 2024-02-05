@@ -9,6 +9,10 @@ public class Solicitud {
     private String fecha_inicio;
     private String fecha_fin;
     private String estatus;
+    private String descripcion;
+
+    public Solicitud() {
+    }
 
     public Solicitud(String usuario_uuid, String estatus) {
         this.usuario_uuid = usuario_uuid;
@@ -65,6 +69,14 @@ public class Solicitud {
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
 }
